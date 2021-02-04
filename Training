@@ -1,0 +1,25 @@
+#Training réaliser sur google colab
+
+!pip install fastai --upgrade && pip install pydicom kornia
+!pip install nbdev
+
+from fastai.basics import *
+from fastai.callback.all import *
+from fastai.vision.all import *
+from fastai.medical.imaging import *
+
+import pydicom
+
+import pandas as pd
+import numpy as np
+
+#Rework du CSV file et du labelling :
+
+df = pd.read_csv('path_to_csv')
+
+for x in df.index:
+  if len(df.loc[x, ' EncodedPixels']) > 3:
+    df.loc[x, ' EncodedPixels'] = 'Pneumothorax'
+  
+  else :
+    df.loc[x, ' EncodedPixels'] = 'No Pneumothorax'
